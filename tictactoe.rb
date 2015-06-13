@@ -1,6 +1,6 @@
 require 'pry'
 
-WINNING_LINES = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
+WINNING_COMBOS = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
 
 def initialize_board
   board = {}
@@ -30,9 +30,9 @@ def player_chooses_square(board)
 end
 
 def computer_wins(board)
-  WINNING_LINES.each do |line|
-    if board.values_at(*line).count("O") == 2
-      line.each do |square|
+  WINNING_COMBOS.each do |combo|
+    if board.values_at(*combo).count("O") == 2
+      combo.each do |square|
         if board[square] == " "
           board[square] = "O"
         end
@@ -43,9 +43,9 @@ def computer_wins(board)
 end
 
 def computer_blocks(board)
-  WINNING_LINES.each do |line|
-    if board.values_at(*line).count("X") == 2
-      line.each do |square|
+  WINNING_COMBOS.each do |combo|
+    if board.values_at(*combo).count("X") == 2
+      combo.each do |square|
         if board[square] == " "
           board[square] = "O"
         end
@@ -65,9 +65,9 @@ def computer_chooses_square(board)
 end
 
 def check_winner(board)
-  WINNING_LINES.each do |line|
-    return "Player" if board.values_at(*line).count("X") == 3
-    return "Computer" if board.values_at(*line).count("O") == 3
+  WINNING_COMBOS.each do |combo|
+    return "Player" if board.values_at(*combo).count("X") == 3
+    return "Computer" if board.values_at(*combo).count("O") == 3
   end
   nil
 end
