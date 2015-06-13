@@ -1,42 +1,42 @@
 require 'pry'
 
 def initialize_board
-  b = {}
-  (1..9).each { |square| b[square] = " " }
-  b
+  board = {}
+  (1..9).each { |square| board[square] = " " }
+  board
 end
 
-def draw_board(b)
+def draw_board(board)
   system "clear"
-  puts " #{b[1]} | #{b[2]} | #{b[3]} "
+  puts " #{board[1]} | #{board[2]} | #{board[3]} "
   puts "-----------"
-  puts " #{b[4]} | #{b[5]} | #{b[6]} "
+  puts " #{board[4]} | #{board[5]} | #{board[6]} "
   puts "-----------"
-  puts " #{b[7]} | #{b[8]} | #{b[9]} "
+  puts " #{board[7]} | #{board[8]} | #{board[9]} "
 end
 
-def empty_squares(b)
-  b.select { |k, v| v == " " }.keys
+def empty_squares(board)
+  board.select { |k, v| v == " " }.keys
 end
 
-def player_chooses_square(b)
+def player_chooses_square(board)
   begin
     puts "What's your move? (1-9):"
     square = gets.chomp.to_i
-  end until empty_squares(b).include?(square)
-  b[square] = "X"
+  end until empty_squares(board).include?(square)
+  board[square] = "X"
 end
 
-def computer_chooses_square(b)
-  square = empty_squares(b).sample
-  b[square] = "O"
+def computer_chooses_square(board)
+  square = empty_squares(board).sample
+  board[square] = "O"
 end
 
-def check_winner(b)
+def check_winner(board)
   winning_lines = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
   winning_lines.each do |line|
-    return "Player" if b.values_at(*line).count("X") == 3
-    return "Computer" if b.values_at(*line).count("O") == 3
+    return "Player" if board.values_at(*line).count("X") == 3
+    return "Computer" if board.values_at(*line).count("O") == 3
   end
   nil
 end
