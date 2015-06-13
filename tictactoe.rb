@@ -1,5 +1,7 @@
 require 'pry'
 
+WINNING_LINES = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
+
 def initialize_board
   board = {}
   (1..9).each { |square| board[square] = " " }
@@ -27,14 +29,43 @@ def player_chooses_square(board)
   board[square] = "X"
 end
 
+def computer_wins(board)
+  WINNING_LINES.each do |line|
+    if board.values_at(*line).count("O") == 2
+      line.each do |square|
+        if board[square] == " "
+          board[square] = "O"
+        end
+      end
+    end
+  end
+  nil
+end
+
+def computer_blocks(board)
+  WINNING_LINES.each do |line|
+    if board.values_at(*line).count("X") == 2
+      line.each do |square|
+        if board[square] == " "
+          board[square] = "O"
+        end
+      end
+    end
+  end
+  false
+end
+
 def computer_chooses_square(board)
-  square = empty_squares(board).sample
-  board[square] = "O"
+  if computer_wins(board)
+  elsif computer_blocks(board)
+  else
+    square = empty_squares(board).sample
+    board[square] = "O"
+  end
 end
 
 def check_winner(board)
-  winning_lines = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
-  winning_lines.each do |line|
+  WINNING_LINES.each do |line|
     return "Player" if board.values_at(*line).count("X") == 3
     return "Computer" if board.values_at(*line).count("O") == 3
   end
