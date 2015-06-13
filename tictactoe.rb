@@ -20,8 +20,10 @@ def empty_squares(b)
 end
 
 def player_chooses_square(b)
-  puts "What's your move? (1-9):"
-  square = gets.chomp.to_i
+  begin
+    puts "What's your move? (1-9):"
+    square = gets.chomp.to_i
+  end until empty_squares(b).include?(square)
   b[square] = "X"
 end
 
