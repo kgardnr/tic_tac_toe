@@ -35,6 +35,7 @@ def computer_wins(board)
       combo.each do |square|
         if board[square] == " "
           board[square] = "O"
+          return true
         end
       end
     end
@@ -48,6 +49,7 @@ def computer_blocks(board)
       combo.each do |square|
         if board[square] == " "
           board[square] = "O"
+          return true
         end
       end
     end
