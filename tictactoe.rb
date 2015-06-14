@@ -18,7 +18,7 @@ def draw_board(board)
 end
 
 def empty_squares(board)
-  board.select { |k, v| v == " " }.keys
+  board.select { |_k, v| v == " " }.keys
 end
 
 def player_chooses_square(board)
