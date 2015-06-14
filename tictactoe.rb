@@ -58,11 +58,13 @@ def computer_blocks(board)
 end
 
 def computer_chooses_square(board)
-  if computer_wins(board)
-  elsif computer_blocks(board)
-  else
-    square = empty_squares(board).sample
-    board[square] = "O"
+  unless check_winner(board)
+    if computer_wins(board)
+    elsif computer_blocks(board)
+    else
+      square = empty_squares(board).sample
+      board[square] = "O"
+    end
   end
 end
 
