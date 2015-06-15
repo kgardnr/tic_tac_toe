@@ -58,13 +58,11 @@ def computer_blocks(board)
 end
 
 def computer_chooses_square(board)
-  unless check_winner(board)
-    if computer_wins(board)
-    elsif computer_blocks(board)
-    else
-      square = empty_squares(board).sample
-      board[square] = "O"
-    end
+  if computer_wins(board)
+  elsif computer_blocks(board)
+  else
+    square = empty_squares(board).sample
+    board[square] = "O"
   end
 end
 
@@ -81,7 +79,7 @@ draw_board(board)
 
 begin
   player_chooses_square(board)
-  computer_chooses_square(board)
+  computer_chooses_square(board) unless check_winner(board)
   draw_board(board)
   winner = check_winner(board)
 end until winner || empty_squares(board).empty?
